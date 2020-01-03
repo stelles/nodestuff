@@ -1,0 +1,24 @@
+{
+  "name": "interview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "mv index.js index.js.save && mv empty.js index.js && zip interview.zip index.js index.test.js package.json README.md && mv index.js empty.js && mv index.js.save index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devetry/interview.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devetry/interview/issues"
+  },
+  "homepage": "https://github.com/devetry/interview#readme",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  },
+  "dependencies": {}
+}
