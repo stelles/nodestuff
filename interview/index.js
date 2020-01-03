@@ -47,12 +47,77 @@ function combineAndSort(a1, a2) {
 
 function anagramTester(s1,s2){
     // TODO: make this more efficient
-    sl1 = s1.toLowerCase().split();
-    sl2 = s2.toLowerCase().split();
+    let sl1 = s1.toLowerCase().split("");
+    let sl2 = s2.toLowerCase().split("");
     sl1.sort();
     sl2.sort();
-    for (var i=0)
-    return sl1 == sl2;
+    if (sl1.length != sl2.length) {
+        return false;
+    }
+    for (var i=0; i < sl1.length; i++){
+        if (sl1[i] != sl2[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function forEach(obj, callback) {
+    // callback was (val, key) so we keep that order
+    for (const k in obj){
+        callback(obj[k], k)
+    }
+}
+
+function setIn(o, p, v){
+    // Eval is not good but its so easy
+    let evals = "o." + p + "=v;"
+    console.log(evals);
+    eval(evals);
+}
+
+function shallowMergeObjects() {
+    // Object.assign pretty much is merge 2nd arg into first
+    let copy = {};
+    for (var i in arguments){
+        let e = arguments[i];
+        let c = Object.assign(copy, e);
+    }
+    return copy;
+}
+
+class Car {
+    // Maybe could extend object but not sure so just pull out the fields
+    constructor(o){
+        this.fuel_level = o.initialFuelLevel;
+        this.max_fuel = o.fuelCapacity;
+    }
+
+    getFuelLevel(){
+        return this.fuel_level;
+    }
+    addFuel(n){
+        this.fuel_level = Math.min(this.fuel_level + n, this.max_fuel);
+    }
+}
+
+async function cookThanksgivingDinner(actions){
+    // Prehead -> promise.all will wait for all of them -> finish
+    let preheated = await actions.preheatOven();
+    let cooked = await Promise.all([actions.cookTurkey(), actions.cookDressing()]);
+    let finished = await actions.serveDinner();
+
+    return true;
+}
+
+function calc(l) {
+    // Evals is not the play but works
+    return function(o) {
+        return function (r) {
+            evals = l + o + r;
+            return eval(evals);
+        }
+    }
 }
 
 module.exports = {
@@ -61,4 +126,10 @@ module.exports = {
   vowelize: vowelize,
   combineAndSort: combineAndSort,
   anagramTester: anagramTester,
+  forEach: forEach,
+  setIn:setIn,
+  shallowMergeObjects:shallowMergeObjects,
+  Car:Car,
+  calc:calc,
+  cookThanksgivingDinner:cookThanksgivingDinner,
 }
